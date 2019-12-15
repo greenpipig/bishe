@@ -21,7 +21,7 @@ elif choose == "2":
     ipright = tool.check_ip(ip)
     tool.ping(ipright)
     tool.testport(ipright, port)
-    push.more_thread(ipright, port)#todo 進度條
+    push.more_thread(ipright, port)#todo 進度條test
 elif choose == "3":
     # todo cc
     input()
