@@ -27,7 +27,6 @@ elif choose == "3":
     input()
 elif choose == "4":
     # todo DBattack
-    #todo git
     input()
 elif choose == "5":
     # todo ddos

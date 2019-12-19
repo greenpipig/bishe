@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-
+import os
+from tool import bea_bar
 import time
 import urllib.request
 import threading
 from time import sleep
 
 # 性能测试页面
-#PERF_TEST_URL = "http://127.0.0.1:5000/"
+# PERF_TEST_URL = "http://127.0.0.1:5000/"
 
 # 配置:模拟运行状态
 THREAD_NUM = 20  # 并发线程总数
@@ -18,7 +19,7 @@ ERROR_NUM = 0
 
 
 # 具体的处理函数，负责处理单个任务
-def doWork(index,url1):
+def doWork(index, url1):
     t = threading.currentThread()
     try:
         html = urllib.request.urlopen(url1).read()
@@ -34,7 +35,7 @@ def working(url):
     i = 0
     while i < ONE_WORKER_NUM:
         i += 1
-        doWork(i,url)
+        doWork(i, url)
         sleep(LOOP_SLEEP)
     # print( "["+t.name+"] Sub Thread End" )
 
@@ -45,9 +46,15 @@ def more_thread(ip, port):
     Threads = []
     # 创建线程
     for i in range(THREAD_NUM):
+        print(bea_bar(i,THREAD_NUM))
         t = threading.Thread(target=working(testurl), name="T" + str(i))
         t.setDaemon(True)
         Threads.append(t)
+
+
+
+        os.system('cls')
+        #todo 根據輸入的進程數量做進度條
     for t in Threads:
         t.start()
     for t in Threads:
@@ -61,3 +68,7 @@ def more_thread(ip, port):
     print("每次请求耗时(秒):", (t2 - t1) / (THREAD_NUM * ONE_WORKER_NUM))
     print("每秒承载请求数:", 1 / ((t2 - t1) / (THREAD_NUM * ONE_WORKER_NUM)))
     print("错误数量:", ERROR_NUM)
+
+
+if __name__ == '__main__':
+    more_thread('127.0.0.1', '5000')
