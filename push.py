@@ -12,7 +12,7 @@ from time import sleep
 # 配置:模拟运行状态
 THREAD_NUM = 20  # 并发线程总数
 ONE_WORKER_NUM = 100  # 每个线程的循环次数
-LOOP_SLEEP = 0.1  # 每次请求时间间隔(秒)
+LOOP_SLEEP = 0.01  # 每次请求时间间隔(秒)
 
 # 出错数
 ERROR_NUM = 0
@@ -46,15 +46,11 @@ def more_thread(ip, port):
     Threads = []
     # 创建线程
     for i in range(THREAD_NUM):
-        print(bea_bar(i,THREAD_NUM))
+        print(bea_bar(i, THREAD_NUM))
         t = threading.Thread(target=working(testurl), name="T" + str(i))
         t.setDaemon(True)
         Threads.append(t)
-
-
-
         os.system('cls')
-        #todo 根據輸入的進程數量做進度條
     for t in Threads:
         t.start()
     for t in Threads:

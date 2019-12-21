@@ -25,7 +25,7 @@ def get_ip_ports():
 
 
 def ping(ip):
-    yesno = input("do you wanna check ip is useful Y/N")
+    yesno = input("do you wanna check ip is useful Y/N:")
 
     if yesno == "Y":
         result = os.system(u"ping " + ip)
@@ -38,14 +38,14 @@ def ping(ip):
     elif yesno == "N":
         return
     else:
-        print("input wrong please try again")
+        print("input wrong please try again:")
         ping(ip)
 
 
 def test_port(ip, port):
     # todo curl解析码
     result = os.system(u"curl " + ip + ":" + port)
-    if result == 1:
+    if result == 0:
         print("yes")
     else:
         print("no")
