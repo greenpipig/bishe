@@ -24,4 +24,4 @@ def udpfloods(ip, port, user_input_time):
 
 
 if __name__ == '__main__':
-    udpfloods('127.0.0.1', '5000', 30)
+    udpfloods('127.0.0.1', '6000', 30)
