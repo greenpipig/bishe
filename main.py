@@ -1,5 +1,5 @@
 from time import sleep
-
+import syn_flood
 import udpflood
 import tool
 import push
@@ -17,17 +17,9 @@ if choose == "1":
     tool.test_port(ip_right, port)
     udpflood.udpfloods(ip_right, port, user_time)  # todo string转
 elif choose == "2":
-    # todo ddos
-    ip = input("Please input the ip you wanna attack：")
-    port = input("Please input the port you wanna attack：")
-    ip_right = tool.check_ip(ip)
-    tool.ping(ip_right)
-    tool.test_port(ip_right, port)
-    sleep(30)
-    push.more_thread(ip_right, port)
+    push.start()
 elif choose == "3":
-    # todo cc
-    input()
+    syn_flood.start()
 elif choose == "4":
     # todo DBattack
     input()

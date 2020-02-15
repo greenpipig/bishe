@@ -4,6 +4,7 @@ from tool import bea_bar
 import time
 import urllib.request
 import threading
+import tool
 from time import sleep
 
 # 性能测试页面
@@ -64,6 +65,16 @@ def more_thread(ip, port):
     print("每次请求耗时(秒):", (t2 - t1) / (THREAD_NUM * ONE_WORKER_NUM))
     print("每秒承载请求数:", 1 / ((t2 - t1) / (THREAD_NUM * ONE_WORKER_NUM)))
     print("错误数量:", ERROR_NUM)
+
+
+def start():
+    ip = input("Please input the ip you wanna attack：")
+    port = input("Please input the port you wanna attack：")
+    ip_right = tool.check_ip(ip)
+    tool.ping(ip_right)
+    tool.test_port(ip_right, port)
+    sleep(30)
+    more_thread(ip_right, port)
 
 
 if __name__ == '__main__':

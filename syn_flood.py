@@ -44,6 +44,11 @@ def info():
     dstPort = int(input("Target Port : "))
     return dstIP, dstPort
 
+def start():
+    dstIP, dstPort = info()
+    count = int(input("Please input the number of packets："))
+    synFlood(count, dstIP, dstPort)
+
 
 if __name__ == '__main__':
     dstIP, dstPort = info()

@@ -9,13 +9,14 @@ NETWORK_RESULT = 0
 
 
 def surface():
-    print("=====================================================")
-    print("                  test                       ")
-    print("               press 1 in udpflood                     ")
-    print("                 press 2 in ddos                      ")
-    print("                  press 3 in cc")
-    print("                press 4 in DBattack")
-    print("=====================================================")
+    print("=" * 40)
+    print("test                       ")
+    print("press 1 in udp-flood                     ")
+    print("press 2 in http-push                      ")
+    print("press 3 in syn-flood")
+    print("press 4 in syn&ack-flood")
+    print("=" * 40)
+
 
 
 def get_ip_ports():
@@ -28,7 +29,7 @@ def ping(ip):
     yesno = input("do you wanna check ip is useful Y/N:")
 
     if yesno == "Y":
-        result = os.system(u"ping " + ip)
+        result = os.system(u"ping -c 1 -w 1 " + ip)
         # result = os.system(u"ping www.baidu.com -n 3")
         if result == 0:
             print("network success")
@@ -69,11 +70,14 @@ def bea_bar(now, num):
     bar1 = ""
     for i in range(0, now):
         bar1 = bar1 + '#'
-        i+=1
+        i += 1
 
-    bar2=""
-    for j in range(0,num-now):
-        bar2=bar2+' '
-        j+=1
-    bar=bar1+bar2+"進度條"+str((now/num)*100)+"%"
+    bar2 = ""
+    for j in range(0, num - now):
+        bar2 = bar2 + ' '
+        j += 1
+    bar = bar1 + bar2 + "进度条" + str((now / num) * 100) + "%"
     return bar
+
+if __name__ == '__main__':
+    ping('127.0.0.1')
