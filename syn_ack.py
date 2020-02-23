@@ -76,28 +76,29 @@ def IP(source, destination, udplen):
     return ip_header
 
 
-def TCP(srcip, dstip, protocol, dp, fg):
-    source = socket.inet_aton(srcip)
-    destination = socket.inet_aton(dstip)
-    srcport = random.randint(1, 65535)
-    dstport = dp
+def TCP(src_ip, dst_ip, protocol, dp, ack_judge):
+    source = socket.inet_aton(src_ip)
+    destination = socket.inet_aton(dst_ip)
+    src_port = random.randint(1, 65535)
+    dst_port = dp
     syn_num = random.randint(1, 4000000000)
-    if fg == 2:
+    if ack_judge == 2:
         ack_num = 0
     else:
+        # 在此处判断是否是ack方式
         ack_num = random.randint(1, 4000000000)
     hlen = 5
     zero = 0
-    flag = fg
+    flag = ack_judge
     window = 8192
     check = 0
     point = 0
-    tcplen = hlen
+    tcp_len = hlen
     h_f = (hlen << 12) + flag
-    TCP_head = struct.pack("!4s4sHHHHIIHHHH", source, destination, protocol, tcplen, srcport, dstport, syn_num, ack_num,
+    TCP_head = struct.pack("!4s4sHHHHIIHHHH", source, destination, protocol, tcp_len, src_port, dst_port, syn_num, ack_num,
                            h_f, window, check, point)
     check = uchar_checksum(TCP_head)
-    TCP_head = struct.pack("!HHIIHHHH", srcport, dstport, syn_num, ack_num, h_f, window, check, point)
+    TCP_head = struct.pack("!HHIIHHHH", src_port, dst_port, syn_num, ack_num, h_f, window, check, point)
     return TCP_head
 
 
@@ -168,7 +169,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)
 # s = socket.socket(socket.AF_INET, socket.SOCK_RAW)
 # s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # s.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
-
+# todo 套接字的含义
 
 if __name__ == '__main__':
     dstip = input('attack IP:')
