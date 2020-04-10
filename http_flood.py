@@ -7,9 +7,6 @@ import threading
 import tool
 from time import sleep
 
-# 性能测试页面
-# PERF_TEST_URL = "http://127.0.0.1:5000/"
-
 # 配置:模拟运行状态
 THREAD_NUM = 20  # 并发线程总数
 ONE_WORKER_NUM = 1000  # 每个线程的循环次数
@@ -20,7 +17,7 @@ ERROR_NUM = 0
 
 
 # 具体的处理函数，负责处理单个任务
-def doWork(index, url1):
+def do_work(index, url1):
     t = threading.currentThread()
     try:
         html = urllib.request.urlopen(url1).read()
@@ -36,7 +33,7 @@ def working(url):
     i = 0
     while i < ONE_WORKER_NUM:
         i += 1
-        doWork(i, url)
+        do_work(i, url)
         sleep(LOOP_SLEEP)
     # print( "["+t.name+"] Sub Thread End" )
 
@@ -67,7 +64,7 @@ def more_thread(ip, port):
     print("错误数量:", ERROR_NUM)
 
 
-def start():
+def http_start():
     ip = input("Please input the ip you wanna attack：")
     port = input("Please input the port you wanna attack：")
     ip_right = tool.check_ip(ip)
