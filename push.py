@@ -12,8 +12,8 @@ from time import sleep
 
 # 配置:模拟运行状态
 THREAD_NUM = 20  # 并发线程总数
-ONE_WORKER_NUM = 100  # 每个线程的循环次数
-LOOP_SLEEP = 0.01  # 每次请求时间间隔(秒)
+ONE_WORKER_NUM = 1000  # 每个线程的循环次数
+LOOP_SLEEP = 0.0001  # 每次请求时间间隔(秒)
 
 # 出错数
 ERROR_NUM = 0
@@ -78,4 +78,4 @@ def start():
 
 
 if __name__ == '__main__':
-    more_thread('127.0.0.1', '5000')
+    more_thread('127.0.0.1', '9090')

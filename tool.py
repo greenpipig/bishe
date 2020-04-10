@@ -2,7 +2,6 @@
 import os
 import re
 import time
-from tqdm import tqdm
 
 PING_RESULT = 0
 NETWORK_RESULT = 0
@@ -16,7 +15,6 @@ def surface():
     print("press 3 in syn-flood")
     print("press 4 in syn&ack-flood")
     print("=" * 40)
-
 
 
 def get_ip_ports():
@@ -78,6 +76,7 @@ def bea_bar(now, num):
         j += 1
     bar = bar1 + bar2 + "进度条" + str((now / num) * 100) + "%"
     return bar
+
 
 if __name__ == '__main__':
     ping('127.0.0.1')
